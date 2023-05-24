@@ -22,7 +22,7 @@ jobs:
     steps:
       - name: Checkout branch
         uses: actions/checkout@v3
-      - uses: notpeelz/gh-create-release@<%= `${it.version}\n` %>
+      - uses: notpeelz/action-gh-create-release@<%= `${it.version}\n` %>
         with:
           token: ${{ github.token }}
           tag: v${{ inputs.version }}
