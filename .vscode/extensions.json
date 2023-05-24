@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "arcanis.vscode-zipfs",
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "shadowtime2000.eta-vscode"
+  ]
+}

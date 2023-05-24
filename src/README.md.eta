@@ -1,0 +1,61 @@
+# GitHub Create Release
+
+A GitHub action to automate the creation of releases.
+
+## Usage example
+
+```yaml
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version"
+        required: true
+        type: string
+
+jobs:
+  publish-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v3
+      - uses: notpeelz/action-create-release@<%= `${it.version}\n` %>
+        with:
+          token: ${{ github.token }}
+          tag: v${{ inputs.version }}
+          title: v${{ inputs.version }}
+          files: |
+            file1.txt
+            file2.txt
+```
+
+## Parameters
+
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+<% Object.entries(it.meta.inputs).forEach(function([name, param]) { %>
+| <%~
+  ("`" + name + "`") + (param.required ? "[^required]" : "")
+%> | <%~
+  param.description.split("\n").join("<br/>")
+%> | <%~
+  param.default != null
+    ? "`" + param.default + "`"
+    : ""
+%> |
+<% }) %>
+
+[^required]: required
+
+## Outputs
+
+| Parameter | Description |
+|-----------|-------------|
+<% Object.entries(it.meta.outputs).forEach(function([name, param]) { %>
+| <%~
+  "`" + name + "`"
+%> | <%~
+  param.description.split("\n").join("<br/>")
+%> |
+<% }) %>

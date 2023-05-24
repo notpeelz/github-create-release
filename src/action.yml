@@ -1,0 +1,85 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-action.json
+
+name: "gh-create-release"
+description: "Automates the creation of releases for GitHub repositories."
+author: "notpeelz"
+branding:
+  icon: upload
+  color: green
+outputs:
+  release_id:
+    description: |
+      The identifier of the release that was created.
+inputs:
+  token:
+    description: "GitHub access token"
+    required: true
+  ref:
+    description: |
+      The git ref used to create the tag and release.
+      If not specified, defaults to the commit SHA that triggered the workflow.
+    required: false
+  tag:
+    description: |
+      The name of the tag associated with the release.
+    required: true
+  tagMessage:
+    description: |
+      The message associated with the tag (defaults to the name of the tag)
+    required: false
+  strategy:
+    description: |
+      Determines what should be done if the tag already exists.
+      Possible values:
+        `failFast` - if the tag already exists, aborts the release creation
+        `useExisting` - uses an existing tag (`ref` parameter is ignored)
+        `skip` - if the tag already exists, do nothing
+        `replace` - replaces the tag along with associated releases
+    required: false
+    default: "failFast"
+  title:
+    description: |
+      The title of the release.
+    required: false
+  title_source:
+    description: |
+      Determines where the the title should be read from.
+      Possible values:
+        `literal` - uses the "title" parameter as-is
+        `file` - reads from the file specified in the "title" parameter
+        `env` - reads from the environment variable specified in the "title" parameter
+    required: false
+    default: "literal"
+  body:
+    description: |
+      The message associated with the release.
+    required: false
+  body_source:
+    description: |
+      Determines where the the body should be read from.
+      Possible values:
+        `literal` - uses the "body" parameter as-is
+        `file` - reads from the file specified in the "body" parameter
+        `env` - reads from the environment variable specified in the "body" parameter
+    required: false
+    default: "literal"
+  prerelease:
+    description: |
+      If true, the release will be marked as a pre-release.
+    required: false
+  draft:
+    description: "If true, the release will be made into a draft."
+    required: false
+  discussion_category_name:
+    description: |
+      If specified, a discussion of the specified category is created and
+      linked to the release.
+    required: false
+  files:
+    description: |
+      Newline-separated list of files to upload (supports globbing).
+      Missing files are ignored.
+    required: false
+runs:
+  using: "node16"
+  main: ./action.mjs

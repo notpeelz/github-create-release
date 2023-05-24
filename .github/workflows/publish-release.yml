@@ -1,0 +1,56 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+
+name: Publish release
+
+on:
+  push:
+    tags:
+      - "*"
+
+env:
+  GIT_USER_EMAIL: "41898282+github-actions[bot]@users.noreply.github.com"
+  GIT_USER_NAME: "github-actions[bot]"
+
+jobs:
+  publish-release:
+    name: Publish release
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    steps:
+      - name: Checkout project repo
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
+        with:
+          ref: ${{ github.sha }}
+          path: project-repo
+      - name: Checkout action repo
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
+        with:
+          repository: notpeelz/action-gh-create-release
+          token: ${{ secrets.ACTION_REPO_TOKEN }}
+          path: action-repo
+      - name: Set Node.js
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0
+        with:
+          node-version: lts/gallium
+      - name: Set up Yarn
+        run: |
+          corepack enable
+          corepack prepare yarn@stable --activate
+      - name: Build
+        working-directory: project-repo
+        env:
+          PROJECT_VERSION: ${{ github.ref_name }}
+        run: |
+          yarn install
+          yarn build
+      - name: Update action repo
+        run: |
+          git -C action-repo rm -rf --ignore-unmatch .
+          cp -r project-repo/dist/. action-repo
+          git -C action-repo config user.name "$GIT_USER_NAME"
+          git -C action-repo config user.email "$GIT_USER_EMAIL"
+          git -C action-repo add -v -A :/
+          git -C action-repo commit \
+            -m "Publish release: $GITHUB_REF_NAME" \
+            -m "Built from ${GITHUB_REPOSITORY}@${GITHUB_SHA}"
+          git -C action-repo push
