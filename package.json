@@ -1,5 +1,5 @@
 {
-  "name": "github-action-create-release",
+  "name": "github-create-release",
   "version": "0.0.0",
   "private": true,
   "license": "MIT",

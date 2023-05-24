@@ -4,7 +4,7 @@ A GitHub action to automate the creation of releases.
 
 Source code available at https://github.com/notpeelz/github-create-release
 
-## Usage example
+## Usage
 
 ```yaml
 on:
@@ -22,7 +22,7 @@ jobs:
     steps:
       - name: Checkout branch
         uses: actions/checkout@v3
-      - uses: notpeelz/action-create-release@<%= `${it.version}\n` %>
+      - uses: notpeelz/gh-create-release@<%= `${it.version}\n` %>
         with:
           token: ${{ github.token }}
           tag: v${{ inputs.version }}

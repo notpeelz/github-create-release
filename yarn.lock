@@ -2400,9 +2400,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"github-action-create-release@workspace:.":
+"github-create-release@workspace:.":
   version: 0.0.0-use.local
-  resolution: "github-action-create-release@workspace:."
+  resolution: "github-create-release@workspace:."
   dependencies:
     "@actions/core": ^1.10.0
     "@actions/github": ^5.1.1
