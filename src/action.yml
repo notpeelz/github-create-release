@@ -12,8 +12,10 @@ outputs:
       The identifier of the release that was created.
 inputs:
   token:
-    description: "GitHub access token"
-    required: true
+    description: |
+      GitHub access token
+    required: false
+    default: "${{ github.token }}"
   ref:
     description: |
       The git ref used to create the tag and release.
