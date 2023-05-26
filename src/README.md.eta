@@ -4,34 +4,6 @@ A GitHub action to automate the creation of releases.
 
 Source code available at https://github.com/notpeelz/github-create-release
 
-## Usage
-
-```yaml
-on:
-  workflow_dispatch:
-    inputs:
-      version:
-        description: "Version"
-        required: true
-        type: string
-
-jobs:
-  publish-release:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout branch
-        uses: actions/checkout@v3
-      - uses: notpeelz/action-gh-create-release@<%= `${it.version}\n` %>
-        with:
-          token: ${{ github.token }}
-          tag: v${{ inputs.version }}
-          title: v${{ inputs.version }}
-          files: |
-            file1.txt
-            file2.txt
-```
-
 ## Parameters
 
 | Parameter | Description | Default |
@@ -61,3 +33,67 @@ jobs:
   param.description.split("\n").join("<br/>")
 %> |
 <% }) %>
+
+## Examples
+
+### Publish release when new tags are pushed
+
+```yaml
+name: Publish release
+
+on:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  publish-release:
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v3
+      - name: Build
+        run: |
+          echo "stuff!" > file1.txt
+          echo "more stuff!" > file2.txt
+          echo "even more stuff!" > even_more_stuff.txt
+          echo "even more stuff! (#2)" > even_more_stuff_v2.txt
+      - uses: notpeelz/action-gh-create-release@<%= `${it.version}\n` %>
+        with:
+          strategy: existing
+          tag: ${{ github.ref_name }}
+          title: ${{ github.ref_name }}
+          files: |
+            file*.txt
+            even_more_stuff{,_v2}.txt
+```
+
+### Publish release via manual workflow run
+
+```yaml
+name: Create release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version"
+        required: true
+        type: string
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v3
+      - uses: notpeelz/action-gh-create-release@<%= `${it.version}\n` %>
+        with:
+          strategy: failFast # this is the default
+          # TODO: it's probably a good idea to validate the version format
+          # in an earlier step.
+          tag: v${{ inputs.version }}
+          title: v${{ inputs.version }}
+```
