@@ -18,9 +18,9 @@ inputs:
     default: "${{ github.token }}"
   ref:
     description: |
-      The git ref used to create the tag and release.
-      If not specified, defaults to the commit SHA that triggered the workflow.
+      The git ref used to create the tag.
     required: false
+    default: "${{ github.sha }}"
   tag:
     description: |
       The name of the tag associated with the release.

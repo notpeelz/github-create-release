@@ -91,7 +91,7 @@ interface Config {
 }
 
 async function getConfig(): Promise<Config> {
-  const ref = getInput("ref") || context.sha;
+  const ref = getInput("ref", true);
   const tag = getInput("tag", true);
 
   // The user can set the message to an empty string.
