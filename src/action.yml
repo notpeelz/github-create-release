@@ -9,7 +9,8 @@ branding:
 outputs:
   release_id:
     description: |
-      The identifier of the release that was created.
+      The unique identifier of the release that was created.
+      See https://docs.github.com/en/rest/releases/releases#get-a-release
 inputs:
   token:
     description: |
