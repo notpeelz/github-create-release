@@ -16,6 +16,12 @@ inputs:
       GitHub access token
     required: false
     default: "${{ github.token }}"
+  repository:
+    description: |
+      The repository where the release should be created.
+      For example, `octocat/hello-world`
+    required: false
+    default: "${{ github.repository }}"
   ref:
     description: |
       The git ref used to create the tag.

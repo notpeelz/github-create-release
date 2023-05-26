@@ -70,6 +70,30 @@ async function getBody(): Promise<string | undefined> {
   }
 }
 
+function getRepo(): [string, string] {
+  const fullRepoPath = getInput("repository", true);
+  const match = fullRepoPath.match(/^(.*)\/(.*)$/);
+  if (match == null) {
+    throw new ActionError(
+      `repository is not in the <owner>/<repo> format: ${fullRepoPath}`,
+    );
+  }
+
+  let [, owner, repo] = match;
+  owner = owner.trim();
+  repo = repo.trim();
+
+  if (owner == null || owner === "") {
+    throw new ActionError(`repository owner is invalid: ${owner}`);
+  }
+
+  if (repo == null || repo === "") {
+    throw new ActionError(`repository name is invalid: ${repo}`);
+  }
+
+  return [owner, repo];
+}
+
 enum Strategy {
   Replace = "replace",
   Skip = "skip",
@@ -79,6 +103,8 @@ enum Strategy {
 
 interface Config {
   ref: string;
+  owner: string;
+  repo: string;
   tag: string;
   tagMessage: string;
   strategy: Strategy;
@@ -91,6 +117,7 @@ interface Config {
 }
 
 async function getConfig(): Promise<Config> {
+  const [owner, repo] = getRepo();
   const ref = getInput("ref", true);
   const tag = getInput("tag", true);
 
@@ -111,6 +138,8 @@ async function getConfig(): Promise<Config> {
 
   return {
     ref,
+    owner,
+    repo,
     tag,
     tagMessage,
     strategy,
@@ -129,7 +158,6 @@ async function run(): Promise<void> {
       timeout: 30000,
     },
   });
-  const { owner, repo } = context.repo;
   const config = await getConfig();
 
   logger.info(`config: ${JSON.stringify(config, null, 2)}`);
@@ -138,8 +166,8 @@ async function run(): Promise<void> {
   try {
     logger.info(`checking if tag "${config.tag}" already exists`);
     existingTag = await octokit.rest.git.getRef({
-      owner,
-      repo,
+      owner: config.owner,
+      repo: config.repo,
       ref: `tags/${config.tag}`,
     });
 
@@ -170,7 +198,10 @@ async function run(): Promise<void> {
     }
   }
 
-  const releases = await octokit.rest.repos.listReleases({ owner, repo });
+  const releases = await octokit.rest.repos.listReleases({
+    owner: config.owner,
+    repo: config.repo,
+  });
   logger.debug(
     `checking for existing releases associated with tag "${config.tag}"`,
   );
@@ -181,8 +212,8 @@ async function run(): Promise<void> {
     const releaseId = release.id;
     logger.debug(`deleting release id ${releaseId}`);
     await octokit.rest.repos.deleteRelease({
-      owner,
-      repo,
+      owner: config.owner,
+      repo: config.repo,
       release_id: releaseId,
     });
   }
@@ -197,16 +228,16 @@ async function run(): Promise<void> {
     try {
       logger.info("attempting to update existing tag");
       await octokit.rest.git.updateRef({
-        owner,
-        repo,
+        owner: config.owner,
+        repo: config.repo,
         ref: `tags/${config.tag}`,
         sha: config.ref,
         force: true,
       });
       undoTag = async (): Promise<void> => {
         await octokit.rest.git.updateRef({
-          owner,
-          repo,
+          owner: config.owner,
+          repo: config.repo,
           ref: `tags/${config.tag}`,
           sha: existingTagSha,
         });
@@ -222,23 +253,23 @@ async function run(): Promise<void> {
     logger.info("creating tag");
     try {
       await octokit.rest.git.createTag({
-        owner,
-        repo,
+        owner: config.owner,
+        repo: config.repo,
         tag: config.tag,
         message: config.tagMessage,
         object: config.ref,
         type: "commit",
       });
       await octokit.rest.git.createRef({
-        owner,
-        repo,
+        owner: config.owner,
+        repo: config.repo,
         ref: `refs/tags/${config.tag}`,
         sha: config.ref,
       });
       undoTag = async (): Promise<void> => {
         await octokit.rest.git.deleteRef({
-          owner,
-          repo,
+          owner: config.owner,
+          repo: config.repo,
           ref: `refs/tags/${config.tag}`,
         });
       };
@@ -255,8 +286,8 @@ async function run(): Promise<void> {
   try {
     logger.info("creating release");
     release = await octokit.rest.repos.createRelease({
-      owner,
-      repo,
+      owner: config.owner,
+      repo: config.repo,
       name: config.title,
       body: config.body,
       tag_name: config.tag,
@@ -294,8 +325,8 @@ async function run(): Promise<void> {
       async () => {
         // We can't overwrite assets, so remove existing ones from previous the attempt.
         const assets = await octokit.rest.repos.listReleaseAssets({
-          owner,
-          repo,
+          owner: config.owner,
+          repo: config.repo,
           release_id: releaseId,
         });
         for (const asset of assets.data) {
@@ -304,8 +335,8 @@ async function run(): Promise<void> {
               `deleting existing asset from previous attempt: ${name}`,
             );
             await octokit.rest.repos.deleteReleaseAsset({
-              owner,
-              repo,
+              owner: config.owner,
+              repo: config.repo,
               asset_id: asset.id,
             });
           }
@@ -332,8 +363,8 @@ async function run(): Promise<void> {
       logger.info(`exceed upload retry limit; deleting release`);
       try {
         await octokit.rest.repos.deleteRelease({
-          owner,
-          repo,
+          owner: config.owner,
+          repo: config.repo,
           release_id: releaseId,
         });
       } catch (err) {
