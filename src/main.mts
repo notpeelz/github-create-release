@@ -221,7 +221,7 @@ async function run(): Promise<void> {
   } else {
     logger.info("creating tag");
     try {
-      const tag = await octokit.rest.git.createTag({
+      await octokit.rest.git.createTag({
         owner,
         repo,
         tag: config.tag,
@@ -229,11 +229,17 @@ async function run(): Promise<void> {
         object: config.ref,
         type: "commit",
       });
+      await octokit.rest.git.createRef({
+        owner,
+        repo,
+        ref: `refs/tags/${config.tag}`,
+        sha: config.ref,
+      });
       undoTag = async (): Promise<void> => {
         await octokit.rest.git.deleteRef({
           owner,
           repo,
-          ref: `tags/${tag.data.tag}`,
+          ref: `refs/tags/${config.tag}`,
         });
       };
       logger.info("successfully created tag");
