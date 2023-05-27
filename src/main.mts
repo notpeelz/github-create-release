@@ -211,66 +211,80 @@ async function run(): Promise<void> {
   }
 
   let undoTag;
-  const existingTagSha = existingTag?.data?.object?.sha;
+  const existingTagSha = existingTag?.data.object.sha;
   if (config.strategy === Strategy.UseExistingTag) {
     undoTag = async function (): Promise<void> {
       /* no-op */
     };
-  } else if (existingTagSha != null) {
-    try {
-      logger.info("attempting to update existing tag");
-      await octokit.rest.git.updateRef({
+  } else {
+    logger.info("resolving ref");
+    const newTagSha = (
+      await octokit.rest.git.getRef({
         owner: config.owner,
         repo: config.repo,
-        ref: `tags/${config.tag}`,
-        sha: config.ref,
-        force: true,
-      });
-      undoTag = async (): Promise<void> => {
+        ref: config.ref,
+      })
+    ).data.object.sha;
+    if (existingTagSha != null) {
+      try {
+        logger.info("attempting to update existing tag");
         await octokit.rest.git.updateRef({
           owner: config.owner,
           repo: config.repo,
           ref: `tags/${config.tag}`,
-          sha: existingTagSha,
+          sha: newTagSha,
+          force: true,
         });
-      };
-      logger.info("successfully updated tag");
-    } catch (err) {
-      logger.error("failed to update existing tag", {
-        error: err,
-      });
-      process.exit(1);
-    }
-  } else {
-    logger.info("creating tag");
-    try {
-      await octokit.rest.git.createTag({
-        owner: config.owner,
-        repo: config.repo,
-        tag: config.tag,
-        message: config.tagMessage,
-        object: config.ref,
-        type: "commit",
-      });
-      await octokit.rest.git.createRef({
-        owner: config.owner,
-        repo: config.repo,
-        ref: `refs/tags/${config.tag}`,
-        sha: config.ref,
-      });
-      undoTag = async (): Promise<void> => {
-        await octokit.rest.git.deleteRef({
+        undoTag = async (): Promise<void> => {
+          await octokit.rest.git.updateRef({
+            owner: config.owner,
+            repo: config.repo,
+            ref: `tags/${config.tag}`,
+            sha: existingTagSha,
+          });
+        };
+        logger.info("successfully updated tag");
+      } catch (err) {
+        logger.error("failed to update existing tag", {
+          error: err,
+        });
+        process.exit(1);
+      }
+    } else {
+      try {
+        logger.info("creating tag");
+        await octokit.rest.git.createTag({
+          owner: config.owner,
+          repo: config.repo,
+          tag: config.tag,
+          message: config.tagMessage,
+          object: newTagSha,
+          type: "commit",
+        });
+
+        logger.info("creating tag ref");
+        await octokit.rest.git.createRef({
           owner: config.owner,
           repo: config.repo,
           ref: `refs/tags/${config.tag}`,
+          sha: newTagSha,
         });
-      };
-      logger.info("successfully created tag");
-    } catch (err) {
-      logger.error("failed to create tag", {
-        error: err,
-      });
-      process.exit(1);
+
+        undoTag = async (): Promise<void> => {
+          await octokit.rest.git.deleteRef({
+            owner: config.owner,
+            repo: config.repo,
+            ref: `refs/tags/${config.tag}`,
+          });
+        };
+
+        logger.info("successfully created tag");
+      } catch (err) {
+        logger.error("failed to create tag", {
+          error: err,
+        });
+        process.exit(1);
+      }
     }
   }
 
@@ -283,7 +297,6 @@ async function run(): Promise<void> {
       name: config.title,
       body: config.body,
       tag_name: config.tag,
-      target_commitish: config.ref,
       discussion_category_name: config.discussionCategoryName,
       prerelease: config.prerelease,
       draft: config.draft,
