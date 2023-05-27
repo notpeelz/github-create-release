@@ -102,7 +102,7 @@ const formatter = winston.format((info) => {
 
     const metadata = lodash.omit(error, ["name", "message", "stack"]);
     if (Object.keys(metadata).length > 0) {
-      builder.push("Metadata:");
+      builder.push("Metadata: ");
       builder.push(JSON.stringify(metadata, undefined, 2));
       builder.pushLine();
     }
@@ -118,8 +118,19 @@ const formatter = winston.format((info) => {
   };
 
   if (info.message != null) {
-    builder.pushLine(info.message);
+    builder.push(info.message);
   }
+
+  const metadata = lodash.omit(info, ["level", "message", "error"]);
+  if (Object.keys(metadata).length > 0) {
+    if (info.message != null) {
+      builder.push(": ");
+    }
+    builder.push(JSON.stringify(metadata, undefined, 2));
+  } else if (info.message != null) {
+    builder.pushLine();
+  }
+
   processError(info.error);
 
   info.message = builder.build();

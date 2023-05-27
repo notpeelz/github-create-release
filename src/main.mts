@@ -211,8 +211,9 @@ async function init(): Promise<[ReturnType<typeof getOctokit>, Config]> {
 
 async function run(): Promise<void> {
   const [github, config] = await init();
-
-  logger.info(`config: ${JSON.stringify(config, null, 2)}`);
+  logger.info("initialized", {
+    config,
+  });
 
   let existingTag;
   try {
@@ -291,7 +292,7 @@ async function run(): Promise<void> {
     } else {
       try {
         logger.info("creating tag");
-        await github.rest.git.createTag({
+        const tag = await github.rest.git.createTag({
           owner: config.owner,
           repo: config.repo,
           tag: config.tag,
@@ -299,13 +300,22 @@ async function run(): Promise<void> {
           object: config.targetSha,
           type: "commit",
         });
+        logger.debug("created tag", {
+          tag,
+        });
 
         logger.info("creating tag ref");
-        await github.rest.git.createRef({
+        // FIXME: for some reason GitHub refuses to create tag refs for
+        // anything that isn't the latest commit. Maybe I'm missing something
+        // but who knows...
+        const tagRef = await github.rest.git.createRef({
           owner: config.owner,
           repo: config.repo,
           ref: `refs/tags/${config.tag}`,
           sha: config.targetSha,
+        });
+        logger.debug("created tag ref", {
+          tagRef,
         });
 
         undoTag = async (): Promise<void> => {
