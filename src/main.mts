@@ -96,7 +96,6 @@ function getRepo(): [string, string] {
 
 enum Strategy {
   Replace = "replace",
-  Skip = "skip",
   FailFast = "failFast",
   UseExistingTag = "useExistingTag",
 }
@@ -170,13 +169,6 @@ async function run(): Promise<void> {
       repo: config.repo,
       ref: `tags/${config.tag}`,
     });
-
-    if (config.strategy === Strategy.Skip) {
-      logger.info(
-        `tag "${config.tag}" already exists; skipping release creation`,
-      );
-      return;
-    }
 
     if (config.strategy === Strategy.FailFast) {
       logger.error(`tag "${config.tag}" already exists`);

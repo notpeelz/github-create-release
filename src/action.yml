@@ -40,10 +40,9 @@ inputs:
     description: |
       Determines what should be done if the tag already exists.
       Possible values:
-        `failFast` - if the tag already exists, aborts with an error
-        `skip` - if the tag already exists, aborts gracefully (no error)
+        `failFast` - aborts with an error if the tag already exists
         `useExistingTag` - uses an existing tag, replacing associated releases (`ref` parameter is ignored)
-        `replace` - replaces the tag along with its associated releases
+        `replace` - replaces the tag along with associated releases
     required: false
     default: "failFast"
   title:
