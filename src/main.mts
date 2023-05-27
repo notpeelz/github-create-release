@@ -163,31 +163,27 @@ async function run(): Promise<void> {
 
   let existingTag;
   try {
-    logger.info(`checking if tag "${config.tag}" already exists`);
+    logger.info("checking if tag already exists");
     existingTag = await octokit.rest.git.getRef({
       owner: config.owner,
       repo: config.repo,
       ref: `tags/${config.tag}`,
     });
-
-    if (config.strategy === Strategy.FailFast) {
-      logger.error(`tag "${config.tag}" already exists`);
-      process.exit(1);
-    }
   } catch (err) {
     if (isHttpError(err)) {
       if (err.status !== 404) {
-        logger.error("failed to verify if tag already exist", {
-          error: err,
-        });
-        process.exit(1);
+        throw new ActionError("failed to verify if tag already exists", err);
       }
     } else {
-      logger.error("failed to verify if tag already exists (unknown error)", {
-        error: err,
-      });
-      process.exit(1);
+      throw new ActionError(
+        "failed to verify if tag already exists (unknown error)",
+        err,
+      );
     }
+  }
+
+  if (existingTag != null && config.strategy === Strategy.FailFast) {
+    throw new ActionError("tag already exists");
   }
 
   const releases = await octokit.rest.repos.listReleases({
@@ -245,10 +241,7 @@ async function run(): Promise<void> {
         };
         logger.info("successfully updated tag");
       } catch (err) {
-        logger.error("failed to update existing tag", {
-          error: err,
-        });
-        process.exit(1);
+        throw new ActionError("failed to update existing tag", err);
       }
     } else {
       try {
@@ -280,10 +273,7 @@ async function run(): Promise<void> {
 
         logger.info("successfully created tag");
       } catch (err) {
-        logger.error("failed to create tag", {
-          error: err,
-        });
-        process.exit(1);
+        throw new ActionError("failed to create tag", err);
       }
     }
   }
@@ -303,17 +293,13 @@ async function run(): Promise<void> {
     });
     logger.info(`created release (id ${release.data.id})`);
   } catch (err) {
-    logger.error("failed to create release", {
-      error: err,
-    });
-
     try {
       await undoTag();
     } catch (err) {
       logger.error("failed to undo tag changes", err);
     }
 
-    process.exit(1);
+    throw new ActionError("failed to create release", err);
   }
 
   const releaseId = release.data.id;
@@ -324,48 +310,43 @@ async function run(): Promise<void> {
     const name = basename(file);
 
     logger.info(`uploading file: ${file}`);
-    const success = await runWithRetry(
-      4,
-      4000,
-      async () => {
-        // We can't overwrite assets, so remove existing ones from previous the attempt.
-        const assets = await octokit.rest.repos.listReleaseAssets({
-          owner: config.owner,
-          repo: config.repo,
-          release_id: releaseId,
-        });
-        for (const asset of assets.data) {
-          if (asset.name === name) {
-            logger.debug(
-              `deleting existing asset from previous attempt: ${name}`,
-            );
-            await octokit.rest.repos.deleteReleaseAsset({
-              owner: config.owner,
-              repo: config.repo,
-              asset_id: asset.id,
-            });
-          }
+    const [success, err] = await runWithRetry(4, 4000, async () => {
+      // We can't overwrite assets, so remove existing ones from previous the attempt.
+      const assets = await octokit.rest.repos.listReleaseAssets({
+        owner: config.owner,
+        repo: config.repo,
+        release_id: releaseId,
+      });
+      for (const asset of assets.data) {
+        if (asset.name === name) {
+          logger.debug(
+            `deleting existing asset from previous attempt: ${name}`,
+          );
+          await octokit.rest.repos.deleteReleaseAsset({
+            owner: config.owner,
+            repo: config.repo,
+            asset_id: asset.id,
+          });
         }
+      }
 
-        const headers = {
-          "content-length": stats.size,
-          "content-type": "application/octet-stream",
-        };
-        const data = createReadStream(file);
-        await octokit.rest.repos.uploadReleaseAsset({
-          // @ts-expect-error: if only they could get their types right...
-          data,
-          headers,
-          name,
-          url: releaseUploadUrl,
-        });
-      },
-      async (err) => {
-        logger.error(`failed to upload file: ${file}`, err);
-      },
-    );
+      const headers = {
+        "content-length": stats.size,
+        "content-type": "application/octet-stream",
+      };
+      const data = createReadStream(file);
+      await octokit.rest.repos.uploadReleaseAsset({
+        // @ts-expect-error: if only they could get their types right...
+        data,
+        headers,
+        name,
+        url: releaseUploadUrl,
+      });
+    });
+
     if (!success) {
-      logger.info(`exceed upload retry limit; deleting release`);
+      logger.info(`exceeded upload retry limit; deleting release`);
+
       try {
         await octokit.rest.repos.deleteRelease({
           owner: config.owner,
@@ -381,7 +362,8 @@ async function run(): Promise<void> {
       } catch (err) {
         logger.error("failed to undo tag changes", err);
       }
-      process.exit(1);
+
+      throw new ActionError(`failed to upload file: ${file}`, err);
     }
   }
 
@@ -400,16 +382,14 @@ async function runWithRetry(
   attempts: number,
   maxDelay: number,
   f: () => Promise<void>,
-  onError: (err: unknown) => Promise<void>,
-): Promise<boolean> {
+): Promise<[boolean, unknown]> {
   for (let i = 0; i < attempts; i++) {
     try {
       await f();
-      return true;
+      return [true, undefined];
     } catch (err) {
-      await onError(err);
       if (i === attempts - 1) {
-        break;
+        return [false, err];
       }
 
       const delay = Math.min(
@@ -420,7 +400,8 @@ async function runWithRetry(
       await sleep(delay);
     }
   }
-  return false;
+
+  throw unreachable();
 }
 
 try {
