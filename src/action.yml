@@ -14,7 +14,7 @@ outputs:
 inputs:
   token:
     description: |
-      GitHub access token
+      The GitHub access token.
     required: false
     default: "${{ github.token }}"
   repository:
@@ -40,10 +40,10 @@ inputs:
     description: |
       Determines what should be done if the tag already exists.
       Possible values:
-        `failFast` - if the tag already exists, aborts the release creation
-        `useExisting` - uses an existing tag (`ref` parameter is ignored)
-        `skip` - if the tag already exists, do nothing
-        `replace` - replaces the tag along with associated releases
+        `failFast` - if the tag already exists, aborts with an error
+        `skip` - if the tag already exists, aborts gracefully (no error)
+        `useExisting` - uses an existing tag, replacing associated releases (`ref` parameter is ignored)
+        `replace` - replaces the tag along with its associated releases
     required: false
     default: "failFast"
   title:
