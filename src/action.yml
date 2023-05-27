@@ -7,7 +7,7 @@ branding:
   icon: upload
   color: green
 outputs:
-  release_id:
+  release-id:
     description: |
       The unique identifier of the release that was created.
       See https://docs.github.com/en/rest/releases/releases#get-a-release
@@ -32,7 +32,7 @@ inputs:
     description: |
       The name of the tag associated with the release.
     required: true
-  tagMessage:
+  tag-message:
     description: |
       The message associated with the tag (defaults to the name of the tag)
     required: false
@@ -40,16 +40,16 @@ inputs:
     description: |
       Determines what should be done if the tag already exists.
       Possible values:
-        `failFast` - aborts with an error if the tag already exists
-        `useExistingTag` - uses an existing tag, replacing associated releases (`ref` parameter is ignored)
+        `fail-fast` - aborts with an error if the tag already exists
+        `use-existing-tag` - uses an existing tag, replacing associated releases (`ref` parameter is ignored)
         `replace` - replaces the tag along with associated releases
     required: false
-    default: "failFast"
+    default: "fail-fast"
   title:
     description: |
       The title of the release.
     required: false
-  title_source:
+  title-source:
     description: |
       Determines where the the title should be read from.
       Possible values:
@@ -62,7 +62,7 @@ inputs:
     description: |
       The message associated with the release.
     required: false
-  body_source:
+  body-source:
     description: |
       Determines where the the body should be read from.
       Possible values:
@@ -78,7 +78,7 @@ inputs:
   draft:
     description: "If true, the release will be made into a draft."
     required: false
-  discussion_category_name:
+  discussion-category-name:
     description: |
       If specified, a discussion of the specified category is created and
       linked to the release.

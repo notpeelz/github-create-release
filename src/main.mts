@@ -19,7 +19,7 @@ import unreachable from "./unreachable.mjs";
 const logger = createLogger();
 
 async function getTitle(): Promise<string | undefined> {
-  const source = getEnumInput("title_source", ["literal", "file", "env"], true);
+  const source = getEnumInput("title-source", ["literal", "file", "env"], true);
   switch (source) {
     case "literal": {
       return getInput("title", false);
@@ -45,7 +45,7 @@ async function getTitle(): Promise<string | undefined> {
 }
 
 async function getBody(): Promise<string | undefined> {
-  const source = getEnumInput("body_source", ["literal", "file", "env"], true);
+  const source = getEnumInput("body-source", ["literal", "file", "env"], true);
   switch (source) {
     case "literal": {
       return getInput("body", false);
@@ -96,8 +96,8 @@ function getRepo(): [string, string] {
 
 enum Strategy {
   Replace = "replace",
-  FailFast = "failFast",
-  UseExistingTag = "useExistingTag",
+  FailFast = "fail-fast",
+  UseExistingTag = "use-existing-tag",
 }
 
 interface Config {
@@ -122,7 +122,7 @@ async function getConfig(): Promise<Config> {
 
   // The user can set the message to an empty string.
   // If the input parameter is omitted, it defaults to the tag.
-  const tagMessage = getInput("tagMessage") || tag;
+  const tagMessage = getInput("tag-message") || tag;
 
   const strategy = getEnumInput("strategy", Object.values(Strategy), true);
   const title = (await getTitle()) ?? "";
@@ -133,7 +133,7 @@ async function getConfig(): Promise<Config> {
 
   // If this is set but the repo doesn't have discussions enabled,
   // GitHub will reject our request.
-  const discussionCategoryName = getInput("discussion_category_name");
+  const discussionCategoryName = getInput("discussion-category-name");
 
   return {
     ref,
@@ -372,7 +372,7 @@ async function run(): Promise<void> {
     }
   }
 
-  setOutput("release_id", releaseId);
+  setOutput("release-id", releaseId);
 }
 
 /**

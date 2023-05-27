@@ -91,7 +91,7 @@ jobs:
         uses: actions/checkout@v3
       - uses: notpeelz/action-gh-create-release@<%= `${it.version}\n` %>
         with:
-          strategy: failFast # this is the default
+          strategy: fail-fast # this is the default
           # TODO: it's probably a good idea to validate the version format
           # in an earlier step.
           tag: v${{ inputs.version }}
