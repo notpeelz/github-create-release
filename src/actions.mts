@@ -1,6 +1,7 @@
 import actionsCore from "@actions/core";
 
 import { ActionError } from "./error.mjs";
+import { Strategy } from "./strategy.mjs";
 
 export class InputParameterError extends ActionError {
   parameterName: string;
@@ -11,7 +12,16 @@ export class InputParameterError extends ActionError {
   }
 }
 
-export class MissingInputParameterError extends InputParameterError {
+export class InputParameterIncompatibleStrategyError extends InputParameterError {
+  constructor(name: string, strategy: Strategy) {
+    super(
+      name,
+      `input parameter '${name}' is incompatible with strategy '${strategy}'`,
+    );
+  }
+}
+
+export class InputParameterRequiredError extends InputParameterError {
   constructor(name: string) {
     super(name, `input parameter '${name}' is required`);
   }
@@ -140,7 +150,7 @@ function hasValue(
 ): value is string {
   if (value == null || value === "") {
     if (required) {
-      throw new MissingInputParameterError(name);
+      throw new InputParameterRequiredError(name);
     } else {
       return false;
     }

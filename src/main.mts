@@ -6,6 +6,8 @@ import { basename } from "node:path";
 import { setTimeout as sleep } from "node:timers/promises";
 
 import {
+  InputParameterIncompatibleStrategyError,
+  InputParameterRequiredError,
   getBooleanInput,
   getEnumInput,
   getInput,
@@ -14,6 +16,7 @@ import {
 } from "./actions.mjs";
 import { ActionError, INNER_ERROR, isHttpError } from "./error.mjs";
 import { createLogger } from "./logger.mjs";
+import { Strategy } from "./strategy.mjs";
 import unreachable from "./unreachable.mjs";
 
 const logger = createLogger();
@@ -94,19 +97,11 @@ function getRepo(): [string, string] {
   return [owner, repo];
 }
 
-enum Strategy {
-  Replace = "replace",
-  FailFast = "fail-fast",
-  UseExistingTag = "use-existing-tag",
-}
-
-interface Config {
-  ref: string;
+interface ConfigBase {
   owner: string;
   repo: string;
   tag: string;
   tagMessage: string;
-  strategy: Strategy;
   title: string;
   body: string;
   prerelease: boolean;
@@ -115,9 +110,23 @@ interface Config {
   files: string[];
 }
 
-async function getConfig(): Promise<Config> {
+type Config =
+  | (ConfigBase & {
+      strategy: Strategy.UseExistingTag;
+    })
+  | (ConfigBase & {
+      strategy: Strategy;
+      targetSha: string;
+    });
+
+async function init(): Promise<[ReturnType<typeof getOctokit>, Config]> {
+  const github = getOctokit(getInput("token", true), {
+    request: {
+      timeout: 30000,
+    },
+  });
+
   const [owner, repo] = getRepo();
-  const ref = getInput("ref", true);
   const tag = getInput("tag", true);
 
   // The user can set the message to an empty string.
@@ -135,13 +144,35 @@ async function getConfig(): Promise<Config> {
   // GitHub will reject our request.
   const discussionCategoryName = getInput("discussion-category-name");
 
-  return {
-    ref,
+  const target = getInput("target");
+  let targetSha;
+  if (target?.includes("/")) {
+    logger.debug("assuming target is a git ref");
+
+    const targetRefName = target.replace(/^refs\//, "");
+    logger.info(`resolving target ref: ${targetRefName}`);
+
+    try {
+      targetSha = (
+        await github.rest.git.getRef({
+          owner,
+          repo,
+          ref: targetRefName,
+        })
+      ).data.object.sha;
+    } catch (err) {
+      throw new ActionError("failed to resolve target ref", err);
+    }
+  } else {
+    logger.debug("assuming target is a SHA");
+    targetSha = target;
+  }
+
+  const config = {
     owner,
     repo,
     tag,
     tagMessage,
-    strategy,
     title,
     body,
     prerelease,
@@ -149,22 +180,44 @@ async function getConfig(): Promise<Config> {
     discussionCategoryName,
     files,
   };
+
+  if (targetSha == null) {
+    if (strategy !== Strategy.UseExistingTag) {
+      throw new InputParameterRequiredError("target");
+    }
+
+    return [
+      github,
+      {
+        ...config,
+        strategy,
+      },
+    ];
+  }
+
+  if (strategy === Strategy.UseExistingTag) {
+    throw new InputParameterIncompatibleStrategyError("target", strategy);
+  }
+
+  return [
+    github,
+    {
+      ...config,
+      strategy,
+      targetSha,
+    },
+  ];
 }
 
 async function run(): Promise<void> {
-  const octokit = getOctokit(getInput("token", true), {
-    request: {
-      timeout: 30000,
-    },
-  });
-  const config = await getConfig();
+  const [github, config] = await init();
 
   logger.info(`config: ${JSON.stringify(config, null, 2)}`);
 
   let existingTag;
   try {
     logger.info("checking if tag already exists");
-    existingTag = await octokit.rest.git.getRef({
+    existingTag = await github.rest.git.getRef({
       owner: config.owner,
       repo: config.repo,
       ref: `tags/${config.tag}`,
@@ -186,7 +239,7 @@ async function run(): Promise<void> {
     throw new ActionError("tag already exists");
   }
 
-  const releases = await octokit.rest.repos.listReleases({
+  const releases = await github.rest.repos.listReleases({
     owner: config.owner,
     repo: config.repo,
   });
@@ -199,7 +252,7 @@ async function run(): Promise<void> {
     }
     const releaseId = release.id;
     logger.debug(`deleting release id ${releaseId}`);
-    await octokit.rest.repos.deleteRelease({
+    await github.rest.repos.deleteRelease({
       owner: config.owner,
       repo: config.repo,
       release_id: releaseId,
@@ -213,26 +266,18 @@ async function run(): Promise<void> {
       /* no-op */
     };
   } else {
-    logger.info("resolving ref");
-    const newTagSha = (
-      await octokit.rest.git.getRef({
-        owner: config.owner,
-        repo: config.repo,
-        ref: config.ref,
-      })
-    ).data.object.sha;
     if (existingTagSha != null) {
       try {
         logger.info("attempting to update existing tag");
-        await octokit.rest.git.updateRef({
+        await github.rest.git.updateRef({
           owner: config.owner,
           repo: config.repo,
           ref: `tags/${config.tag}`,
-          sha: newTagSha,
+          sha: config.targetSha,
           force: true,
         });
         undoTag = async (): Promise<void> => {
-          await octokit.rest.git.updateRef({
+          await github.rest.git.updateRef({
             owner: config.owner,
             repo: config.repo,
             ref: `tags/${config.tag}`,
@@ -246,25 +291,25 @@ async function run(): Promise<void> {
     } else {
       try {
         logger.info("creating tag");
-        await octokit.rest.git.createTag({
+        await github.rest.git.createTag({
           owner: config.owner,
           repo: config.repo,
           tag: config.tag,
           message: config.tagMessage,
-          object: newTagSha,
+          object: config.targetSha,
           type: "commit",
         });
 
         logger.info("creating tag ref");
-        await octokit.rest.git.createRef({
+        await github.rest.git.createRef({
           owner: config.owner,
           repo: config.repo,
           ref: `refs/tags/${config.tag}`,
-          sha: newTagSha,
+          sha: config.targetSha,
         });
 
         undoTag = async (): Promise<void> => {
-          await octokit.rest.git.deleteRef({
+          await github.rest.git.deleteRef({
             owner: config.owner,
             repo: config.repo,
             ref: `refs/tags/${config.tag}`,
@@ -281,7 +326,7 @@ async function run(): Promise<void> {
   let release;
   try {
     logger.info("creating release");
-    release = await octokit.rest.repos.createRelease({
+    release = await github.rest.repos.createRelease({
       owner: config.owner,
       repo: config.repo,
       name: config.title,
@@ -312,7 +357,7 @@ async function run(): Promise<void> {
     logger.info(`uploading file: ${file}`);
     const [success, err] = await runWithRetry(4, 4000, async () => {
       // We can't overwrite assets, so remove existing ones from previous the attempt.
-      const assets = await octokit.rest.repos.listReleaseAssets({
+      const assets = await github.rest.repos.listReleaseAssets({
         owner: config.owner,
         repo: config.repo,
         release_id: releaseId,
@@ -322,7 +367,7 @@ async function run(): Promise<void> {
           logger.debug(
             `deleting existing asset from previous attempt: ${name}`,
           );
-          await octokit.rest.repos.deleteReleaseAsset({
+          await github.rest.repos.deleteReleaseAsset({
             owner: config.owner,
             repo: config.repo,
             asset_id: asset.id,
@@ -335,7 +380,7 @@ async function run(): Promise<void> {
         "content-type": "application/octet-stream",
       };
       const data = createReadStream(file);
-      await octokit.rest.repos.uploadReleaseAsset({
+      await github.rest.repos.uploadReleaseAsset({
         // @ts-expect-error: if only they could get their types right...
         data,
         headers,
@@ -348,7 +393,7 @@ async function run(): Promise<void> {
       logger.info(`exceeded upload retry limit; deleting release`);
 
       try {
-        await octokit.rest.repos.deleteRelease({
+        await github.rest.repos.deleteRelease({
           owner: config.owner,
           repo: config.repo,
           release_id: releaseId,
