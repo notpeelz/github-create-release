@@ -42,7 +42,7 @@ class MessageBuilder {
     for (let i = 0; i < this.parts.length; i++) {
       switch (this.parts[i]) {
         case NEWLINE: {
-          if (i != this.parts.length - 1) {
+          if (i !== this.parts.length - 1) {
             this.parts[i] = indent() + "\n";
           } else {
             this.parts[i] = undefined;
