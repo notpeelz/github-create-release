@@ -1,4 +1,4 @@
-import { context, getOctokit } from "@actions/github";
+import { getOctokit } from "@actions/github";
 import { glob } from "glob";
 import { createReadStream } from "node:fs";
 import { readFile, stat } from "node:fs/promises";
