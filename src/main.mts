@@ -12,7 +12,7 @@ import {
   getMultilineInput,
   setOutput,
 } from "./actions.mjs";
-import { ActionError, isHttpError } from "./error.mjs";
+import { ActionError, INNER_ERROR, isHttpError } from "./error.mjs";
 import { createLogger } from "./logger.mjs";
 import unreachable from "./unreachable.mjs";
 
@@ -413,8 +413,15 @@ async function runWithRetry(
 try {
   await run();
 } catch (err) {
-  logger.error("unhandled error", {
-    error: err,
-  });
+  if (err instanceof ActionError) {
+    logger.error(err.message, {
+      error: err[INNER_ERROR],
+    });
+  } else {
+    logger.error("unhandled error", {
+      error: err,
+    });
+  }
+
   process.exit(1);
 }

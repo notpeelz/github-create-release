@@ -1,6 +1,8 @@
 import actionsCore from "@actions/core";
 
-export class InputParameterError extends Error {
+import { ActionError } from "./error.mjs";
+
+export class InputParameterError extends ActionError {
   parameterName: string;
 
   constructor(name: string, message?: string | undefined) {
