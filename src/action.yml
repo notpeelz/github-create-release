@@ -42,7 +42,7 @@ inputs:
       Possible values:
         `failFast` - if the tag already exists, aborts with an error
         `skip` - if the tag already exists, aborts gracefully (no error)
-        `useExisting` - uses an existing tag, replacing associated releases (`ref` parameter is ignored)
+        `useExistingTag` - uses an existing tag, replacing associated releases (`ref` parameter is ignored)
         `replace` - replaces the tag along with its associated releases
     required: false
     default: "failFast"

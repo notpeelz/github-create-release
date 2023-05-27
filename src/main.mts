@@ -98,7 +98,7 @@ enum Strategy {
   Replace = "replace",
   Skip = "skip",
   FailFast = "failFast",
-  UseExisting = "useExisting",
+  UseExistingTag = "useExistingTag",
 }
 
 interface Config {
@@ -220,7 +220,7 @@ async function run(): Promise<void> {
 
   let undoTag;
   const existingTagSha = existingTag?.data?.object?.sha;
-  if (config.strategy === Strategy.UseExisting) {
+  if (config.strategy === Strategy.UseExistingTag) {
     undoTag = async function (): Promise<void> {
       /* no-op */
     };
