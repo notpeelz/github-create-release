@@ -41,6 +41,7 @@ await esbuild.build({
   format: "esm",
   target: "node16",
   platform: "node",
+  treeShaking: true,
   banner: {
     // https://github.com/evanw/esbuild/issues/1921#issuecomment-1439609735
     js: `

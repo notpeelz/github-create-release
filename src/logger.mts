@@ -1,5 +1,5 @@
 import actionsCore from "@actions/core";
-import lodash from "lodash";
+import omit from "lodash-es/omit";
 import winston from "winston";
 import WinstonTransport from "winston-transport";
 
@@ -100,7 +100,7 @@ const formatter = winston.format((info) => {
       builder.pushLine(error.toString());
     }
 
-    const metadata = lodash.omit(error, ["name", "message", "stack"]);
+    const metadata = omit(error, ["name", "message", "stack"]);
     if (Object.keys(metadata).length > 0) {
       builder.push("Metadata: ");
       builder.push(JSON.stringify(metadata, undefined, 2));
@@ -121,7 +121,7 @@ const formatter = winston.format((info) => {
     builder.push(info.message);
   }
 
-  const metadata = lodash.omit(info, ["level", "message", "error"]);
+  const metadata = omit(info, ["level", "message", "error"]);
   if (Object.keys(metadata).length > 0) {
     if (info.message != null) {
       builder.push(": ");

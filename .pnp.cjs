@@ -32,7 +32,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@octokit/types", "npm:9.2.3"],\
             ["@trivago/prettier-plugin-sort-imports", "virtual:e096acce82c2d9ccb4a5e0ed477ee3c8ddd3f4570f64ef1c28ddf9562f2a1eb58cf8da9009c44e40694fd868852194a8c1970874650e04bf25c73d1fcd84258a#npm:4.1.1"],\
             ["@types/eslint", "npm:8.40.0"],\
-            ["@types/lodash", "npm:4.14.194"],\
+            ["@types/lodash-es", "npm:4.17.7"],\
             ["@types/node", "npm:20.2.3"],\
             ["@types/prettier", "npm:2.7.2"],\
             ["@typescript-eslint/eslint-plugin", "virtual:e096acce82c2d9ccb4a5e0ed477ee3c8ddd3f4570f64ef1c28ddf9562f2a1eb58cf8da9009c44e40694fd868852194a8c1970874650e04bf25c73d1fcd84258a#npm:5.59.7"],\
@@ -44,7 +44,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-github", "virtual:e096acce82c2d9ccb4a5e0ed477ee3c8ddd3f4570f64ef1c28ddf9562f2a1eb58cf8da9009c44e40694fd868852194a8c1970874650e04bf25c73d1fcd84258a#npm:4.7.0"],\
             ["eta", "npm:2.2.0"],\
             ["glob", "npm:10.2.6"],\
-            ["lodash", "npm:4.17.21"],\
+            ["lodash-es", "npm:4.17.21"],\
             ["prettier", "npm:2.8.8"],\
             ["typescript", "patch:typescript@npm%3A5.0.4#~builtin<compat/typescript>::version=5.0.4&hash=b5f058"],\
             ["winston", "npm:3.8.2"],\
@@ -1014,10 +1014,20 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@types/lodash", [\
-        ["npm:4.14.194", {\
-          "packageLocation": "./.yarn/cache/@types-lodash-npm-4.14.194-f099c0742e-113f34831c.zip/node_modules/@types/lodash/",\
+        ["npm:4.14.195", {\
+          "packageLocation": "./.yarn/cache/@types-lodash-npm-4.14.195-a2a8254638-39b75ca635.zip/node_modules/@types/lodash/",\
           "packageDependencies": [\
-            ["@types/lodash", "npm:4.14.194"]\
+            ["@types/lodash", "npm:4.14.195"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/lodash-es", [\
+        ["npm:4.17.7", {\
+          "packageLocation": "./.yarn/cache/@types-lodash-es-npm-4.17.7-7322f70ff2-4b1f39fd1d.zip/node_modules/@types/lodash-es/",\
+          "packageDependencies": [\
+            ["@types/lodash-es", "npm:4.17.7"],\
+            ["@types/lodash", "npm:4.14.195"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -3103,7 +3113,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@octokit/types", "npm:9.2.3"],\
             ["@trivago/prettier-plugin-sort-imports", "virtual:e096acce82c2d9ccb4a5e0ed477ee3c8ddd3f4570f64ef1c28ddf9562f2a1eb58cf8da9009c44e40694fd868852194a8c1970874650e04bf25c73d1fcd84258a#npm:4.1.1"],\
             ["@types/eslint", "npm:8.40.0"],\
-            ["@types/lodash", "npm:4.14.194"],\
+            ["@types/lodash-es", "npm:4.17.7"],\
             ["@types/node", "npm:20.2.3"],\
             ["@types/prettier", "npm:2.7.2"],\
             ["@typescript-eslint/eslint-plugin", "virtual:e096acce82c2d9ccb4a5e0ed477ee3c8ddd3f4570f64ef1c28ddf9562f2a1eb58cf8da9009c44e40694fd868852194a8c1970874650e04bf25c73d1fcd84258a#npm:5.59.7"],\
@@ -3115,7 +3125,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-github", "virtual:e096acce82c2d9ccb4a5e0ed477ee3c8ddd3f4570f64ef1c28ddf9562f2a1eb58cf8da9009c44e40694fd868852194a8c1970874650e04bf25c73d1fcd84258a#npm:4.7.0"],\
             ["eta", "npm:2.2.0"],\
             ["glob", "npm:10.2.6"],\
-            ["lodash", "npm:4.17.21"],\
+            ["lodash-es", "npm:4.17.21"],\
             ["prettier", "npm:2.8.8"],\
             ["typescript", "patch:typescript@npm%3A5.0.4#~builtin<compat/typescript>::version=5.0.4&hash=b5f058"],\
             ["winston", "npm:3.8.2"],\
@@ -3878,6 +3888,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/lodash-npm-4.17.21-6382451519-eb835a2e51.zip/node_modules/lodash/",\
           "packageDependencies": [\
             ["lodash", "npm:4.17.21"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["lodash-es", [\
+        ["npm:4.17.21", {\
+          "packageLocation": "./.yarn/cache/lodash-es-npm-4.17.21-b45832dfce-05cbffad6e.zip/node_modules/lodash-es/",\
+          "packageDependencies": [\
+            ["lodash-es", "npm:4.17.21"]\
           ],\
           "linkType": "HARD"\
         }]\
