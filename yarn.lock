@@ -2208,10 +2208,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eta@npm:^2.2.0":
-  version: 2.2.0
-  resolution: "eta@npm:2.2.0"
-  checksum: 6a09631481d4f26a9662a1eb736a65cc1cbc48e24935e6ff5d83a83b0cb509ea56d588d66d7c087d590601dc59bdabdac2356936b1b789d020eb0cf2d8304d54
+"eta@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "eta@npm:3.0.1"
+  checksum: 405f8e71106629ff81d6ce5cfd4b1c836baf8cc22817bfae58f55edebb4ed2d25e06a3d96e0cbfd44c35b93b537df83be224fcc161afadb783ae03672962757a
   languageName: node
   linkType: hard
 
@@ -2435,7 +2435,7 @@ __metadata:
     eslint: ^8.41.0
     eslint-config-prettier: ^8.8.0
     eslint-plugin-github: ^4.7.0
-    eta: ^2.2.0
+    eta: ^3.0.1
     glob: ^10.2.6
     lodash-es: ^4.17.21
     prettier: ^2.8.8

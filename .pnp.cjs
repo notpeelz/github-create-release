@@ -42,7 +42,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint", "npm:8.41.0"],\
             ["eslint-config-prettier", "virtual:e096acce82c2d9ccb4a5e0ed477ee3c8ddd3f4570f64ef1c28ddf9562f2a1eb58cf8da9009c44e40694fd868852194a8c1970874650e04bf25c73d1fcd84258a#npm:8.8.0"],\
             ["eslint-plugin-github", "virtual:e096acce82c2d9ccb4a5e0ed477ee3c8ddd3f4570f64ef1c28ddf9562f2a1eb58cf8da9009c44e40694fd868852194a8c1970874650e04bf25c73d1fcd84258a#npm:4.7.0"],\
-            ["eta", "npm:2.2.0"],\
+            ["eta", "npm:3.0.1"],\
             ["glob", "npm:10.2.6"],\
             ["lodash-es", "npm:4.17.21"],\
             ["prettier", "npm:2.8.8"],\
@@ -2868,10 +2868,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["eta", [\
-        ["npm:2.2.0", {\
-          "packageLocation": "./.yarn/cache/eta-npm-2.2.0-8003067311-6a09631481.zip/node_modules/eta/",\
+        ["npm:3.0.1", {\
+          "packageLocation": "./.yarn/cache/eta-npm-3.0.1-77054dc10a-405f8e7110.zip/node_modules/eta/",\
           "packageDependencies": [\
-            ["eta", "npm:2.2.0"]\
+            ["eta", "npm:3.0.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -3130,7 +3130,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint", "npm:8.41.0"],\
             ["eslint-config-prettier", "virtual:e096acce82c2d9ccb4a5e0ed477ee3c8ddd3f4570f64ef1c28ddf9562f2a1eb58cf8da9009c44e40694fd868852194a8c1970874650e04bf25c73d1fcd84258a#npm:8.8.0"],\
             ["eslint-plugin-github", "virtual:e096acce82c2d9ccb4a5e0ed477ee3c8ddd3f4570f64ef1c28ddf9562f2a1eb58cf8da9009c44e40694fd868852194a8c1970874650e04bf25c73d1fcd84258a#npm:4.7.0"],\
-            ["eta", "npm:2.2.0"],\
+            ["eta", "npm:3.0.1"],\
             ["glob", "npm:10.2.6"],\
             ["lodash-es", "npm:4.17.21"],\
             ["prettier", "npm:2.8.8"],\
