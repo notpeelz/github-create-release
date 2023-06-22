@@ -7,7 +7,7 @@ module.exports = {
   arrowParens: "always",
   trailingComma: "all",
   bracketSameLine: false,
-  importOrder: ["^[./]"],
+  importOrder: ["^node:", "^(?![./]).*$", "^[./]"],
   importOrderSeparation: true,
   importOrderSortSpecifiers: true,
 };

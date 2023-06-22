@@ -1,9 +1,10 @@
-import { getOctokit } from "@actions/github";
-import { glob } from "glob";
 import { createReadStream } from "node:fs";
 import { readFile, stat } from "node:fs/promises";
 import { basename } from "node:path";
 import { setTimeout as sleep } from "node:timers/promises";
+
+import { getOctokit } from "@actions/github";
+import { glob } from "glob";
 
 import {
   InputParameterIncompatibleStrategyError,

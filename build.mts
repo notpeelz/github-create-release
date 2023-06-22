@@ -1,9 +1,10 @@
-import * as esbuild from "esbuild";
-import { Eta } from "eta";
 import { copyFile, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { chdir } from "node:process";
 import { fileURLToPath } from "node:url";
+
+import * as esbuild from "esbuild";
+import { Eta } from "eta";
 import * as yaml from "yaml";
 
 const projectRoot = fileURLToPath(new URL(".", import.meta.url));
