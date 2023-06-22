@@ -2,18 +2,18 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
     "lib": [
-      "ESNext"
+      "ES2020"
     ],
-    "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
+    "target": "ES2020",
+    "module": "Node16",
+    "moduleResolution": "Node",
     "strict": true,
     "useUnknownInCatchVariables": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-    "noEmit": true,
-    "allowImportingTsExtensions": true
+    "outDir": "./dist",
+    "rootDir": "./src"
   }
 }

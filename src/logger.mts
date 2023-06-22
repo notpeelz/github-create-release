@@ -3,7 +3,7 @@ import omit from "lodash-es/omit";
 import winston from "winston";
 import WinstonTransport from "winston-transport";
 
-import { ActionError, INNER_ERROR } from "./error.mjs";
+import { ActionError, INNER_ERROR } from "./error.mts";
 
 const NEWLINE = Symbol("New line");
 const INDENT = Symbol("Increase indent");

@@ -1,7 +1,7 @@
 import actionsCore from "@actions/core";
 
-import { ActionError } from "./error.mjs";
-import { Strategy } from "./strategy.mjs";
+import { ActionError } from "./error.mts";
+import { Strategy } from "./strategy.mts";
 
 export class InputParameterError extends ActionError {
   parameterName: string;

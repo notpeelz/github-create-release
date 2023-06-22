@@ -13,11 +13,11 @@ import {
   getInput,
   getMultilineInput,
   setOutput,
-} from "./actions.mjs";
-import { ActionError, INNER_ERROR, isHttpError } from "./error.mjs";
-import { createLogger } from "./logger.mjs";
-import { Strategy } from "./strategy.mjs";
-import unreachable from "./unreachable.mjs";
+} from "./actions.mts";
+import { ActionError, INNER_ERROR, isHttpError } from "./error.mts";
+import { createLogger } from "./logger.mts";
+import { Strategy } from "./strategy.mts";
+import unreachable from "./unreachable.mts";
 
 const logger = createLogger();
 
