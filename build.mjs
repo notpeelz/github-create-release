@@ -1,5 +1,5 @@
 import * as esbuild from "esbuild";
-import * as Eta from "eta";
+import { Eta } from "eta";
 import { copyFile, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { chdir } from "node:process";
@@ -30,7 +30,11 @@ const actionMetadata = yaml.parse(
     encoding: "utf8",
   }),
 );
-const renderedReadme = Eta.render(readmeTemplate, { meta: actionMetadata, version });
+const eta = new Eta();
+const renderedReadme = eta.renderString(readmeTemplate, {
+  meta: actionMetadata,
+  version,
+});
 await writeFile(path.join(distDir, "README.md"), renderedReadme);
 
 await esbuild.build({
