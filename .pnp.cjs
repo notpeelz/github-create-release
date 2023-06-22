@@ -30,6 +30,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@actions/core", "npm:1.10.0"],\
             ["@actions/github", "npm:5.1.1"],\
             ["@octokit/types", "npm:10.0.0"],\
+            ["@total-typescript/ts-reset", "npm:0.4.2"],\
             ["@trivago/prettier-plugin-sort-imports", "virtual:e096acce82c2d9ccb4a5e0ed477ee3c8ddd3f4570f64ef1c28ddf9562f2a1eb58cf8da9009c44e40694fd868852194a8c1970874650e04bf25c73d1fcd84258a#npm:4.1.1"],\
             ["@types/eslint", "npm:8.40.0"],\
             ["@types/lodash-es", "npm:4.17.7"],\
@@ -898,6 +899,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@szmarczak/http-timer", "npm:4.0.6"],\
             ["defer-to-connect", "npm:2.0.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@total-typescript/ts-reset", [\
+        ["npm:0.4.2", {\
+          "packageLocation": "./.yarn/cache/@total-typescript-ts-reset-npm-0.4.2-4d5ad075ae-e3681b8fb4.zip/node_modules/@total-typescript/ts-reset/",\
+          "packageDependencies": [\
+            ["@total-typescript/ts-reset", "npm:0.4.2"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -3118,6 +3128,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@actions/core", "npm:1.10.0"],\
             ["@actions/github", "npm:5.1.1"],\
             ["@octokit/types", "npm:10.0.0"],\
+            ["@total-typescript/ts-reset", "npm:0.4.2"],\
             ["@trivago/prettier-plugin-sort-imports", "virtual:e096acce82c2d9ccb4a5e0ed477ee3c8ddd3f4570f64ef1c28ddf9562f2a1eb58cf8da9009c44e40694fd868852194a8c1970874650e04bf25c73d1fcd84258a#npm:4.1.1"],\
             ["@types/eslint", "npm:8.40.0"],\
             ["@types/lodash-es", "npm:4.17.7"],\

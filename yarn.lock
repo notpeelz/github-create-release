@@ -690,6 +690,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@total-typescript/ts-reset@npm:^0.4.2":
+  version: 0.4.2
+  resolution: "@total-typescript/ts-reset@npm:0.4.2"
+  checksum: e3681b8fb48cf63538c19e7f203de5ec8b1abdcd0db5c6bd48e0881e2a86977771118c6c2930691947d11213b10a654bc2328b479c4dc0ddec7dfde129d08569
+  languageName: node
+  linkType: hard
+
 "@trivago/prettier-plugin-sort-imports@npm:^4.1.1":
   version: 4.1.1
   resolution: "@trivago/prettier-plugin-sort-imports@npm:4.1.1"
@@ -2423,6 +2430,7 @@ __metadata:
     "@actions/core": ^1.10.0
     "@actions/github": ^5.1.1
     "@octokit/types": ^10.0.0
+    "@total-typescript/ts-reset": ^0.4.2
     "@trivago/prettier-plugin-sort-imports": ^4.1.1
     "@types/eslint": ^8.40.0
     "@types/lodash-es": ^4.17.7
