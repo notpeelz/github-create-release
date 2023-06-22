@@ -3,6 +3,7 @@
     "arcanis.vscode-zipfs",
     "esbenp.prettier-vscode",
     "dbaeumer.vscode-eslint",
+    "redhat.vscode-yaml",
     "shadowtime2000.eta-vscode"
   ]
 }
