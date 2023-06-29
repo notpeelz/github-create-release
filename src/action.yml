@@ -27,7 +27,6 @@ inputs:
     description: |
       The git object to tag. This can be a SHA or a ref to a git object.
     required: false
-    default: "${{ github.sha }}"
   tag:
     description: |
       The name of the tag associated with the release.

@@ -145,7 +145,13 @@ async function init(): Promise<[ReturnType<typeof getOctokit>, Config]> {
   // GitHub will reject our request.
   const discussionCategoryName = getInput("discussion-category-name");
 
-  const target = getInput("target");
+  let target = getInput("target");
+
+  // Set default value
+  if (target == null && strategy !== Strategy.UseExistingTag) {
+    target = process.env["GITHUB_SHA"];
+  }
+
   let targetSha;
   if (target?.includes("/")) {
     logger.debug("assuming target is a git ref");
