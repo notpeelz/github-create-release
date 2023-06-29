@@ -22,27 +22,32 @@ jobs:
         with:
           ref: ${{ github.sha }}
           path: project-repo
+
       - name: Checkout action repo
         uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
         with:
           repository: notpeelz/action-gh-create-release
           token: ${{ secrets.ACTION_REPO_TOKEN }}
           path: action-repo
+
       - name: Set Node.js
         uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0
         with:
           node-version-file: project-repo/.nvmrc
+
       - name: Set up Yarn
         run: |
           corepack enable
           corepack prepare yarn@stable --activate
+
       - name: Build
         working-directory: project-repo
         env:
           PROJECT_VERSION: ${{ github.ref_name }}
         run: |
-          yarn install
+          yarn install --immutable --immutable-cache --check-cache
           yarn build
+
       - name: Update action repo
         run: |
           git -C action-repo rm -rf --ignore-unmatch .
