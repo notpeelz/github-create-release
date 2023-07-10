@@ -842,12 +842,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@octokit/types@npm:^10.0.0":
-  version: 10.0.0
-  resolution: "@octokit/types@npm:10.0.0"
+"@octokit/types@npm:^11.1.0":
+  version: 11.1.0
+  resolution: "@octokit/types@npm:11.1.0"
   dependencies:
     "@octokit/openapi-types": ^18.0.0
-  checksum: 8aafba2ff0cd2435fb70c291bf75ed071c0fa8a865cf6169648732068a35dec7b85a345851f18920ec5f3e94ee0e954988485caac0da09ec3f6781cc44fe153a
+  checksum: 72627a94ddaf7bc14db06572bcde67649aad608cd86548818380db9305f4c0ca9ca078a62dd883858a267e8ec8fd596a0fce416aa04197c439b9548efef609a7
   languageName: node
   linkType: hard
 
@@ -3000,7 +3000,7 @@ __metadata:
   dependencies:
     "@actions/core": ^1.10.0
     "@actions/github": ^5.1.1
-    "@octokit/types": ^10.0.0
+    "@octokit/types": ^11.1.0
     "@total-typescript/ts-reset": ^0.4.2
     "@trivago/prettier-plugin-sort-imports": ^4.1.1
     "@types/eslint": ^8.40.2
