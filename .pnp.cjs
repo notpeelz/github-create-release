@@ -30,7 +30,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@actions/core", "npm:1.10.0"],\
             ["@actions/github", "npm:5.1.1"],\
-            ["@octokit/types", "npm:10.0.0"],\
+            ["@octokit/types", "npm:11.1.0"],\
             ["@total-typescript/ts-reset", "npm:0.4.2"],\
             ["@trivago/prettier-plugin-sort-imports", "virtual:e096acce82c2d9ccb4a5e0ed477ee3c8ddd3f4570f64ef1c28ddf9562f2a1eb58cf8da9009c44e40694fd868852194a8c1970874650e04bf25c73d1fcd84258a#npm:4.1.1"],\
             ["@types/eslint", "npm:8.40.2"],\
@@ -1057,10 +1057,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@octokit/types", [\
-        ["npm:10.0.0", {\
-          "packageLocation": "./.yarn/cache/@octokit-types-npm-10.0.0-8ea850424d-8aafba2ff0.zip/node_modules/@octokit/types/",\
+        ["npm:11.1.0", {\
+          "packageLocation": "./.yarn/cache/@octokit-types-npm-11.1.0-668299c1c7-72627a94dd.zip/node_modules/@octokit/types/",\
           "packageDependencies": [\
-            ["@octokit/types", "npm:10.0.0"],\
+            ["@octokit/types", "npm:11.1.0"],\
             ["@octokit/openapi-types", "npm:18.0.0"]\
           ],\
           "linkType": "HARD"\
@@ -3658,7 +3658,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["github-create-release", "workspace:."],\
             ["@actions/core", "npm:1.10.0"],\
             ["@actions/github", "npm:5.1.1"],\
-            ["@octokit/types", "npm:10.0.0"],\
+            ["@octokit/types", "npm:11.1.0"],\
             ["@total-typescript/ts-reset", "npm:0.4.2"],\
             ["@trivago/prettier-plugin-sort-imports", "virtual:e096acce82c2d9ccb4a5e0ed477ee3c8ddd3f4570f64ef1c28ddf9562f2a1eb58cf8da9009c44e40694fd868852194a8c1970874650e04bf25c73d1fcd84258a#npm:4.1.1"],\
             ["@types/eslint", "npm:8.40.2"],\
