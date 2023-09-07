@@ -36,7 +36,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/eslint", "npm:8.44.2"],\
             ["@types/lodash-es", "npm:4.17.9"],\
             ["@types/node", "npm:20.5.9"],\
-            ["@types/prettier", "npm:3.0.0"],\
+            ["@types/prettier", "npm:2.7.3"],\
             ["@typescript-eslint/eslint-plugin", "virtual:e096acce82c2d9ccb4a5e0ed477ee3c8ddd3f4570f64ef1c28ddf9562f2a1eb58cf8da9009c44e40694fd868852194a8c1970874650e04bf25c73d1fcd84258a#npm:6.6.0"],\
             ["@typescript-eslint/parser", "virtual:e096acce82c2d9ccb4a5e0ed477ee3c8ddd3f4570f64ef1c28ddf9562f2a1eb58cf8da9009c44e40694fd868852194a8c1970874650e04bf25c73d1fcd84258a#npm:6.6.0"],\
             ["@yarnpkg/sdks", "npm:3.0.0-rc.50"],\
@@ -47,7 +47,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eta", "npm:3.1.1"],\
             ["glob", "npm:10.3.4"],\
             ["lodash-es", "npm:4.17.21"],\
-            ["prettier", "npm:3.0.3"],\
+            ["prettier", "npm:2.8.8"],\
             ["tsx", "npm:3.12.8"],\
             ["typescript", "patch:typescript@npm%3A5.2.2#~builtin<compat/typescript>::version=5.2.2&hash=f3b441"],\
             ["typescript-language-server", "npm:3.3.2"],\
@@ -1324,12 +1324,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/parser", "npm:7.22.5"],\
             ["@babel/traverse", "npm:7.17.3"],\
             ["@babel/types", "npm:7.17.0"],\
-            ["@types/prettier", "npm:3.0.0"],\
+            ["@types/prettier", "npm:2.7.3"],\
             ["@types/vue__compiler-sfc", null],\
             ["@vue/compiler-sfc", null],\
             ["javascript-natural-sort", "npm:0.7.1"],\
             ["lodash", "npm:4.17.21"],\
-            ["prettier", "npm:3.0.3"]\
+            ["prettier", "npm:2.8.8"]\
           ],\
           "packagePeers": [\
             "@types/prettier",\
@@ -1455,11 +1455,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@types/prettier", [\
-        ["npm:3.0.0", {\
-          "packageLocation": "./.yarn/cache/@types-prettier-npm-3.0.0-6c770110eb-a2a512d304.zip/node_modules/@types/prettier/",\
+        ["npm:2.7.3", {\
+          "packageLocation": "./.yarn/cache/@types-prettier-npm-2.7.3-497316f37c-705384209c.zip/node_modules/@types/prettier/",\
           "packageDependencies": [\
-            ["@types/prettier", "npm:3.0.0"],\
-            ["prettier", "npm:3.0.3"]\
+            ["@types/prettier", "npm:2.7.3"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -3924,7 +3923,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/eslint", "npm:8.44.2"],\
             ["@types/lodash-es", "npm:4.17.9"],\
             ["@types/node", "npm:20.5.9"],\
-            ["@types/prettier", "npm:3.0.0"],\
+            ["@types/prettier", "npm:2.7.3"],\
             ["@typescript-eslint/eslint-plugin", "virtual:e096acce82c2d9ccb4a5e0ed477ee3c8ddd3f4570f64ef1c28ddf9562f2a1eb58cf8da9009c44e40694fd868852194a8c1970874650e04bf25c73d1fcd84258a#npm:6.6.0"],\
             ["@typescript-eslint/parser", "virtual:e096acce82c2d9ccb4a5e0ed477ee3c8ddd3f4570f64ef1c28ddf9562f2a1eb58cf8da9009c44e40694fd868852194a8c1970874650e04bf25c73d1fcd84258a#npm:6.6.0"],\
             ["@yarnpkg/sdks", "npm:3.0.0-rc.50"],\
@@ -3935,7 +3934,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eta", "npm:3.1.1"],\
             ["glob", "npm:10.3.4"],\
             ["lodash-es", "npm:4.17.21"],\
-            ["prettier", "npm:3.0.3"],\
+            ["prettier", "npm:2.8.8"],\
             ["tsx", "npm:3.12.8"],\
             ["typescript", "patch:typescript@npm%3A5.2.2#~builtin<compat/typescript>::version=5.2.2&hash=f3b441"],\
             ["typescript-language-server", "npm:3.3.2"],\
@@ -5564,6 +5563,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["prettier", [\
+        ["npm:2.8.8", {\
+          "packageLocation": "./.yarn/cache/prettier-npm-2.8.8-430828a36c-b49e409431.zip/node_modules/prettier/",\
+          "packageDependencies": [\
+            ["prettier", "npm:2.8.8"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:3.0.3", {\
           "packageLocation": "./.yarn/unplugged/prettier-npm-3.0.3-fced695dae/node_modules/prettier/",\
           "packageDependencies": [\
