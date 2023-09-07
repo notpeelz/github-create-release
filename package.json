@@ -9,7 +9,7 @@
   },
   "packageManager": "yarn@3.6.3",
   "scripts": {
-    "build": "tsx build.mts"
+    "build": "tsx --tsconfig scripts/tsconfig.json scripts/build.mts"
   },
   "dependencies": {
     "@actions/core": "^1.10.0",

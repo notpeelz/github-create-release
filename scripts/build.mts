@@ -7,7 +7,7 @@ import * as esbuild from "esbuild";
 import { Eta } from "eta";
 import * as yaml from "yaml";
 
-const projectRoot = fileURLToPath(new URL(".", import.meta.url));
+const projectRoot = fileURLToPath(new URL("..", import.meta.url));
 chdir(projectRoot);
 
 const srcDir = path.join(projectRoot, "src");
@@ -43,8 +43,9 @@ await esbuild.build({
   entryPoints: [path.join(srcDir, "main.mts")],
   bundle: true,
   outfile: path.join(distDir, "action.mjs"),
+  tsconfig: path.join(srcDir, "tsconfig.json"),
   format: "esm",
-  target: "node16",
+  target: "es2020",
   platform: "node",
   treeShaking: true,
   banner: {
