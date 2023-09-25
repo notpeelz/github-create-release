@@ -30,7 +30,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@actions/core", "npm:1.10.0"],\
             ["@actions/github", "npm:5.1.1"],\
-            ["@octokit/types", "npm:11.1.0"],\
+            ["@octokit/types", "npm:12.0.0"],\
             ["@total-typescript/ts-reset", "npm:0.5.1"],\
             ["@trivago/prettier-plugin-sort-imports", "virtual:e096acce82c2d9ccb4a5e0ed477ee3c8ddd3f4570f64ef1c28ddf9562f2a1eb58cf8da9009c44e40694fd868852194a8c1970874650e04bf25c73d1fcd84258a#npm:4.2.0"],\
             ["@types/eslint", "npm:8.44.2"],\
@@ -1147,10 +1147,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "HARD"\
         }],\
-        ["npm:18.0.0", {\
-          "packageLocation": "./.yarn/cache/@octokit-openapi-types-npm-18.0.0-1586e405d6-d487d6c6c1.zip/node_modules/@octokit/openapi-types/",\
+        ["npm:19.0.0", {\
+          "packageLocation": "./.yarn/cache/@octokit-openapi-types-npm-19.0.0-064193076f-9a8125ab4e.zip/node_modules/@octokit/openapi-types/",\
           "packageDependencies": [\
-            ["@octokit/openapi-types", "npm:18.0.0"]\
+            ["@octokit/openapi-types", "npm:19.0.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -1230,11 +1230,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@octokit/types", [\
-        ["npm:11.1.0", {\
-          "packageLocation": "./.yarn/cache/@octokit-types-npm-11.1.0-668299c1c7-72627a94dd.zip/node_modules/@octokit/types/",\
+        ["npm:12.0.0", {\
+          "packageLocation": "./.yarn/cache/@octokit-types-npm-12.0.0-b74b3121ec-ad55e13cbe.zip/node_modules/@octokit/types/",\
           "packageDependencies": [\
-            ["@octokit/types", "npm:11.1.0"],\
-            ["@octokit/openapi-types", "npm:18.0.0"]\
+            ["@octokit/types", "npm:12.0.0"],\
+            ["@octokit/openapi-types", "npm:19.0.0"]\
           ],\
           "linkType": "HARD"\
         }],\
@@ -3917,7 +3917,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["github-create-release", "workspace:."],\
             ["@actions/core", "npm:1.10.0"],\
             ["@actions/github", "npm:5.1.1"],\
-            ["@octokit/types", "npm:11.1.0"],\
+            ["@octokit/types", "npm:12.0.0"],\
             ["@total-typescript/ts-reset", "npm:0.5.1"],\
             ["@trivago/prettier-plugin-sort-imports", "virtual:e096acce82c2d9ccb4a5e0ed477ee3c8ddd3f4570f64ef1c28ddf9562f2a1eb58cf8da9009c44e40694fd868852194a8c1970874650e04bf25c73d1fcd84258a#npm:4.2.0"],\
             ["@types/eslint", "npm:8.44.2"],\
