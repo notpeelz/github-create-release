@@ -3286,7 +3286,7 @@ __metadata:
     prettier: ^2.8.8
     tsx: ^3.12.8
     typescript: ^5.2.2
-    typescript-language-server: ^3.3.2
+    typescript-language-server: ^4.0.0
     winston: ^3.10.0
     winston-transport: ^4.5.0
     yaml: ^2.3.2
@@ -5443,12 +5443,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript-language-server@npm:^3.3.2":
-  version: 3.3.2
-  resolution: "typescript-language-server@npm:3.3.2"
+"typescript-language-server@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "typescript-language-server@npm:4.0.0"
   bin:
     typescript-language-server: lib/cli.mjs
-  checksum: 0708c020cf04d276ed46b6226cf8c21a1427250b7a33a01f1b6c50e47e5fcf09ca9109f4a3e2229764acb94fa84d6cfe1ced57f11e8eec4c593341cd668e24d9
+  checksum: 19a35152a4c304b1c41a20280b22b64fc18544d29c4fb32619fbc94bea28787be252eac950eaf46a497a12314e27ed965eebbee7243effeb9956ad640b14cfae
   languageName: node
   linkType: hard
 

@@ -34,7 +34,7 @@
     "prettier": "^2.8.8",
     "tsx": "^3.12.8",
     "typescript": "^5.2.2",
-    "typescript-language-server": "^3.3.2",
+    "typescript-language-server": "^4.0.0",
     "winston": "^3.10.0",
     "winston-transport": "^4.5.0",
     "yaml": "^2.3.2"

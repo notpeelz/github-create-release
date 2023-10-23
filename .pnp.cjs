@@ -50,7 +50,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["prettier", "npm:2.8.8"],\
             ["tsx", "npm:3.12.8"],\
             ["typescript", "patch:typescript@npm%3A5.2.2#~builtin<compat/typescript>::version=5.2.2&hash=f3b441"],\
-            ["typescript-language-server", "npm:3.3.2"],\
+            ["typescript-language-server", "npm:4.0.0"],\
             ["winston", "npm:3.10.0"],\
             ["winston-transport", "npm:4.5.0"],\
             ["yaml", "npm:2.3.2"]\
@@ -3937,7 +3937,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["prettier", "npm:2.8.8"],\
             ["tsx", "npm:3.12.8"],\
             ["typescript", "patch:typescript@npm%3A5.2.2#~builtin<compat/typescript>::version=5.2.2&hash=f3b441"],\
-            ["typescript-language-server", "npm:3.3.2"],\
+            ["typescript-language-server", "npm:4.0.0"],\
             ["winston", "npm:3.10.0"],\
             ["winston-transport", "npm:4.5.0"],\
             ["yaml", "npm:2.3.2"]\
@@ -6370,10 +6370,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["typescript-language-server", [\
-        ["npm:3.3.2", {\
-          "packageLocation": "./.yarn/cache/typescript-language-server-npm-3.3.2-c139e35efe-0708c020cf.zip/node_modules/typescript-language-server/",\
+        ["npm:4.0.0", {\
+          "packageLocation": "./.yarn/cache/typescript-language-server-npm-4.0.0-acbc41625f-19a35152a4.zip/node_modules/typescript-language-server/",\
           "packageDependencies": [\
-            ["typescript-language-server", "npm:3.3.2"],\
+            ["typescript-language-server", "npm:4.0.0"],\
             ["vscode-jsonrpc", "npm:5.0.1"],\
             ["vscode-languageserver-protocol", "npm:3.17.3"]\
           ],\
