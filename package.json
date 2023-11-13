@@ -32,7 +32,7 @@
     "glob": "^10.3.4",
     "lodash-es": "^4.17.21",
     "prettier": "^2.8.8",
-    "tsx": "^3.12.8",
+    "tsx": "^4.1.1",
     "typescript": "^5.2.2",
     "typescript-language-server": "^4.0.0",
     "winston": "^3.10.0",
