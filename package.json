@@ -21,7 +21,7 @@
     "@types/lodash-es": "^4.17.9",
     "@types/node": "^20.5.9",
     "@types/prettier": "^2.7.3",
-    "@typescript-eslint/eslint-plugin": "^6.6.0",
+    "@typescript-eslint/eslint-plugin": "^7.3.0",
     "@typescript-eslint/parser": "^6.6.0",
     "@yarnpkg/sdks": "^3.0.0-rc.50",
     "esbuild": "^0.19.2",
