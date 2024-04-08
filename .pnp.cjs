@@ -30,7 +30,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@actions/core", "npm:1.10.0"],\
             ["@actions/github", "npm:6.0.0"],\
-            ["@octokit/types", "npm:12.0.0"],\
+            ["@octokit/types", "npm:13.1.0"],\
             ["@total-typescript/ts-reset", "npm:0.5.1"],\
             ["@trivago/prettier-plugin-sort-imports", "virtual:e096acce82c2d9ccb4a5e0ed477ee3c8ddd3f4570f64ef1c28ddf9562f2a1eb58cf8da9009c44e40694fd868852194a8c1970874650e04bf25c73d1fcd84258a#npm:4.2.0"],\
             ["@types/eslint", "npm:8.44.2"],\
@@ -967,6 +967,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@octokit/openapi-types", "npm:19.0.0"]\
           ],\
           "linkType": "HARD"\
+        }],\
+        ["npm:21.2.0", {\
+          "packageLocation": "./.yarn/cache/@octokit-openapi-types-npm-21.2.0-a464d7c6ad-d0d461f50b.zip/node_modules/@octokit/openapi-types/",\
+          "packageDependencies": [\
+            ["@octokit/openapi-types", "npm:21.2.0"]\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["@octokit/plugin-paginate-rest", [\
@@ -1047,6 +1054,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@octokit/types", "npm:12.0.0"],\
             ["@octokit/openapi-types", "npm:19.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:13.1.0", {\
+          "packageLocation": "./.yarn/cache/@octokit-types-npm-13.1.0-5e4784182b-205a190af4.zip/node_modules/@octokit/types/",\
+          "packageDependencies": [\
+            ["@octokit/types", "npm:13.1.0"],\
+            ["@octokit/openapi-types", "npm:21.2.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -3847,7 +3862,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["github-create-release", "workspace:."],\
             ["@actions/core", "npm:1.10.0"],\
             ["@actions/github", "npm:6.0.0"],\
-            ["@octokit/types", "npm:12.0.0"],\
+            ["@octokit/types", "npm:13.1.0"],\
             ["@total-typescript/ts-reset", "npm:0.5.1"],\
             ["@trivago/prettier-plugin-sort-imports", "virtual:e096acce82c2d9ccb4a5e0ed477ee3c8ddd3f4570f64ef1c28ddf9562f2a1eb58cf8da9009c44e40694fd868852194a8c1970874650e04bf25c73d1fcd84258a#npm:4.2.0"],\
             ["@types/eslint", "npm:8.44.2"],\

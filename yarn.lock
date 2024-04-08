@@ -779,6 +779,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@octokit/openapi-types@npm:^21.0.0":
+  version: 21.2.0
+  resolution: "@octokit/openapi-types@npm:21.2.0"
+  checksum: d0d461f50b66b0919c679d58349dfcf3e5fd3a9476af4fcfa69b09dd832b267154bcf356615af81ae3f86747a54a57708790a986c9f7bd4016d861feb85b899c
+  languageName: node
+  linkType: hard
+
 "@octokit/plugin-paginate-rest@npm:^9.0.0":
   version: 9.0.0
   resolution: "@octokit/plugin-paginate-rest@npm:9.0.0"
@@ -831,6 +838,15 @@ __metadata:
   dependencies:
     "@octokit/openapi-types": ^19.0.0
   checksum: ad55e13cbeef96a63d0088df2ed0a8f3ca764db3f877aa2ecb1693de40b03c1f8e392603bd7fddaaaa74138970ea39f46e4b830d15eeeba74be1671f36440129
+  languageName: node
+  linkType: hard
+
+"@octokit/types@npm:^13.1.0":
+  version: 13.1.0
+  resolution: "@octokit/types@npm:13.1.0"
+  dependencies:
+    "@octokit/openapi-types": ^21.0.0
+  checksum: 205a190af4d02a31545ea22e1c4d75213d016eb32fba0e82baac06672f7d6fb65c045ca8ff5e4646095b6649d10f09e8734e7034585751ebbe32988be3426828
   languageName: node
   linkType: hard
 
@@ -3164,7 +3180,7 @@ __metadata:
   dependencies:
     "@actions/core": ^1.10.0
     "@actions/github": ^6.0.0
-    "@octokit/types": ^12.0.0
+    "@octokit/types": ^13.1.0
     "@total-typescript/ts-reset": ^0.5.1
     "@trivago/prettier-plugin-sort-imports": ^4.2.0
     "@types/eslint": ^8.44.2
